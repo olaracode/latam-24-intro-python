@@ -29,6 +29,13 @@ def employee_by_name():
         if employee["name"].upper() == filtro.upper():
             return employee
         
+def edit_employee(employee):
+    index_employee = employees.index(employee)
+    for key,value in employee.items():
+        edit  = input(f"Editar campo {key} : ")
+        if edit:
+            employee[key]=edit
+    employees[index_employee] = employee
 
 def initial_menu():
     print("Bienvenido al Panel de Administración")
@@ -42,11 +49,17 @@ def panel_admin():
     initial_menu()
     opcion = int(input("Elija una opción: "))
     if opcion == 1:
-        employee = employee_by_name()
-        if employee:
-            print("Empleado encontrado------------------")
-            for key, value in employee.items():
+        employee_result = employee_by_name()
+        if employee_result:
+            print("------------------")
+            for key, value in employee_result.items():
                 print(f"{key}: {value}")
+            print("--------------------")
+            sub_menu = input("Desea editar?  Y / N : ")
+            if sub_menu.upper() ==  "Y":
+                edit_employee(employee_result)
+                
+
         else:
             print("Empleado no encontrado")
     
